@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import TodoForm from './components/TodoForm'
 import Todos from './components/Todos'
 
 function App() {
@@ -19,6 +20,21 @@ function App() {
       completed: false,
     },
   ])
+
+  const addTodo = (todoTitle) => {
+    if (todoTitle === '') {
+      return ''
+    }
+
+    const newTodo = {
+      id: todos.length + 1,
+      title: todoTitle,
+      completed: false
+    }
+
+    const updateTodos = todos.concat(newTodo)
+    setTodos(updateTodos)
+  }
 
   const toggleCompleted = (todoId) => {
     const updateTodos = todos.map((todo) => {
@@ -42,6 +58,8 @@ function App() {
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>My Todo List</h1>
+      <TodoForm addTodo={addTodo} />
+
       <Todos 
         todos={todos} 
         toggleCompleted={toggleCompleted} 
